@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
-    title: "Rajesh Portfolio",
-    description: "Personal portfolio of Rajesh",
+    title: "Akshar Portfolio",
+    description: "Personal portfolio of Akshar",
 };
 
 export default function RootLayout({
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body>{children}<Analytics /></body>
         </html>
     );
 }
