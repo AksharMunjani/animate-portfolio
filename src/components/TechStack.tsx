@@ -14,7 +14,6 @@ import {
 } from "@react-three/rapier";
 
 // Textures and geometry will be initialized inside the component to avoid SSR issues
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
 type SphereProps = {
   vec?: THREE.Vector3;
@@ -22,6 +21,7 @@ type SphereProps = {
   r?: typeof THREE.MathUtils.randFloatSpread;
   material: THREE.MeshPhysicalMaterial;
   isActive: boolean;
+  sphereGeometry: THREE.SphereGeometry;
 };
 
 function SphereGeo({
@@ -30,6 +30,7 @@ function SphereGeo({
   r = THREE.MathUtils.randFloatSpread,
   material,
   isActive,
+  sphereGeometry,
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
 
@@ -112,6 +113,8 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+
+  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 28, 28), []);
 
   const textures = useMemo(() => {
     const textureLoader = new THREE.TextureLoader();
@@ -202,6 +205,7 @@ const TechStack = () => {
               {...props}
               material={materials[Math.floor(Math.random() * materials.length)]}
               isActive={isActive}
+              sphereGeometry={sphereGeometry}
             />
           ))}
         </Physics>
