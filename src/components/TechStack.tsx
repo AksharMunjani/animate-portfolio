@@ -13,24 +13,8 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
-const textureLoader = new THREE.TextureLoader();
-const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
-];
-const textures = imageUrls.map((url) => textureLoader.load(url));
-
+// Textures and geometry will be initialized inside the component to avoid SSR issues
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
-
-const spheres = [...Array(30)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
-}));
 
 type SphereProps = {
   vec?: THREE.Vector3;
@@ -128,6 +112,27 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+
+  const textures = useMemo(() => {
+    const textureLoader = new THREE.TextureLoader();
+    const imageUrls = [
+      "/images/react2.webp",
+      "/images/next2.webp",
+      "/images/node2.webp",
+      "/images/express.webp",
+      "/images/mongo.webp",
+      "/images/mysql.webp",
+      "/images/typescript.webp",
+      "/images/javascript.webp",
+    ];
+    return imageUrls.map((url) => textureLoader.load(url));
+  }, []);
+
+  const spheres = useMemo(() => {
+    return [...Array(30)].map(() => ({
+      scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
+    }));
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

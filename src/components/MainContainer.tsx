@@ -10,8 +10,10 @@ import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
+import dynamic from "next/dynamic";
 import setSplitText from "./utils/splitText";
-import TechStack from "./TechStack";
+
+const TechStack = dynamic(() => import("./TechStack"), { ssr: false });
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(false);
